@@ -1,0 +1,431 @@
+/* Serif Font - Playfair Display */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+/* Serif Font - DM Serif Display */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+
+/* Sans-Serif Font - DM Mono */
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text);
+}
+
+:root {
+  --font-serif: 'Playfair Display', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  --font-sans-serif: 'DM Mono', monospace;
+  --font-financials: "DM Serif Display", serif;
+
+  --background: lab(2.75381% 0 0);
+  --line: rgba(112, 112, 112, 0.488);
+  --card-border: #707070;
+  --card-background: #17171a;
+  --theme-green: rgba(199, 245, 61, 0.6);
+  --theme-red: rgba(255, 107, 107, 0.6);
+  --theme-blue: rgb(107, 206, 255, 0.6);
+
+  --text: rgb(223, 220, 215);
+  --text-green: rgba(199, 245, 61);
+  --text-red: rgb(255, 107, 107);
+  --muted-text: #979797;
+}
+
+body {  
+  font-family: var(--font-sans-serif);
+  min-height: 100vh;
+
+  padding: 2rem;
+  background: var(--background);
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  
+  padding-bottom: 2rem;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;   
+  left: 0;
+  width: 100%;
+  height: 0.7px;
+  background-color: var(--card-border);
+}
+
+.header h1 {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+}
+
+.header h1 span {
+  font-style: italic;
+  color: rgb(200, 245, 61);
+}
+
+.header p {
+  font-size: 0.85rem;
+  letter-spacing: 0.075rem;
+  color: var(--muted-text);
+  text-transform: uppercase;
+}
+
+/* Financials */
+.financials {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+
+  padding-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.financials-card {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  border: 1px solid var(--card-border);
+  border-radius: 0.3rem;
+  padding: 1.75rem 2rem;
+  background: var(--card-background);
+  width: 100%;
+
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.financials-card::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  height: 0.15rem;
+  width: 100%;
+}
+
+.financials-card p {
+  color: var(--muted-text);
+  font-size: 0.8rem;
+  letter-spacing: 0.075rem;
+  line-height: 0.01rem;
+}
+
+.financials-card h3 {
+  font-size: 1.8rem;
+  font-family: var(--font-financials);
+}
+
+#balance:hover {
+  border-color: var(--theme-blue);
+}
+
+#income:hover {
+  border-color: var(--theme-green);
+}
+
+#expenses:hover {
+  border-color: var(--theme-red);
+}
+
+#balance::before {
+  background: var(--theme-blue);
+}
+
+#income::before {
+  background: var(--theme-green);
+}
+
+#expenses::before {
+  background: var(--theme-red);
+}
+
+#balance h3, #income h3 {
+  color: var(--text-green);
+}
+
+#expenses h3 {
+  color: var(--text-red);
+}
+
+/* Main content */
+.content {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+/* Content left */
+.content-left {
+  flex: 0 0 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.transactions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  padding: 1.4rem;
+
+  text-transform: uppercase;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  color: var(--muted-text);
+  font-size: 0.7rem;
+  font-weight: 200;
+  letter-spacing: 0.075rem;
+  line-height: 0.8;
+  text-transform: uppercase;
+
+  margin-bottom: 0.4rem;
+}
+
+.title::after {
+  content: "";
+  flex: 1;
+  height: 0.7px;
+  background: var(--line);
+}
+
+.transactions {
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 0.2rem;
+}
+
+.transactions button {
+  padding: 0.25rem 0.5rem;
+
+  font-family: var(--font-sans-serif);
+  font-size: 0.6rem;
+  background: var(--card-background);
+  border: 0.5px solid var(--card-border);
+  border-radius: 2px;
+  color: var(--muted-text);
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  outline: 0;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.transactions button:focus {
+  color: var(--text-green);
+  border: 0.5px solid var(--text-green);
+  background: rgb(32, 32, 32);
+}   
+
+/* History container */
+.history {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* Individual card */
+.history-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0.7rem 1rem;
+  width: 100%;
+
+  text-transform: capitalize;
+
+  border: 1px solid rgba(34, 37, 38, 0.6);
+  border-radius: 4px;
+  background: rgba(34, 37, 38, 0.6);
+
+  transition: all 0.2s ease;
+}
+
+.history-card:hover {
+  border-color: var(--card-border);
+}
+
+.history-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+}
+
+.history-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.history-left-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.fa-solid.fa-circle {
+  font-size: 0.5rem;
+  color: var(--theme-green);
+  text-shadow: 0 0 7px var(--theme-green);
+}
+
+/* TEXT */
+.description {
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.category {
+  color: var(--muted-text);
+  font-size: 0.7rem;
+}
+
+.money {
+  color: var(--text-green);
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.delete-transaction {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  font-size: 0.65rem;
+  font-weight: 300;
+  color: var(--muted-text);
+  opacity: 0;
+
+  transition: all 0.2s ease;
+}
+
+.history-card:hover .delete-transaction {
+  opacity: 1;
+}
+
+.delete-transaction:hover {
+  color: var(--text-red);
+}
+
+/* Charts */
+.infographics {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  padding: 1.4rem;
+
+  border: 1px solid var(--card-border);
+  background: var(--card-background);
+}
+
+.charts {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.day {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.day p {
+  color: var(--muted-text);
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.income {
+  width: 50%;
+  height: 1px;
+  background: rgba(104, 195, 0, 0.664);
+  border-top-right-radius: 0.1rem;
+  border-top-left-radius: 0.1rem;
+}
+
+.expense {
+  width: 50%;
+  height: 1px;
+  background: rgba(255, 0, 0, 0.7);
+  border-top-right-radius: 0.1rem;
+  border-top-left-radius: 0.1rem;
+}
+
+.legend {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.legend p {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.6rem;
+}
+
+.legend p::before {
+  content: "";
+  width: 0.15rem;
+  height: 0.6rem;
+}
+
+.info-income {
+  color: var(--text-green);
+}
+
+.info-expense {
+  color: var(--text-red);
+}
+
+.info-income::before {
+  background: rgba(104, 195, 0, 0.664);
+}
+
+.info-expense::before {
+  background: rgba(255, 0, 0, 0.7);
+}
+
+/* Content right */
+.content-right {
+  flex: 0 0 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

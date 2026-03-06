@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ledger - Personal Finance</title>
+
+  <!-- Icons Font aweome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="tracker.css">
+
+  <!-- Script -->
+  <script defer src="tracker.js"></script>
+</head>
+
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <!-- Logo -->
+    <div class="header-left">
+      <a href="#"><h1>Led<span>ger</span></h1></a>
+    </div>
+
+    <!-- Date -->
+    <div class="header-right">
+      <p id="date">Tuesday, 3 March 2026</p>
+    </div>
+  </header>
+
+  <!-- Financial Details -->
+  <div class="financials">
+    <!-- Balance -->
+    <div class="financials-card" id="balance">
+      <p>Net balance</p>
+      <h3>₹0.00</h3>
+    </div>
+
+    <div class="financials-card" id="income">
+      <p>Total income</p>
+      <h3>₹0.00</h3>
+    </div>
+
+    <div class="financials-card" id="expenses">
+      <p>Total expenses</p>
+      <h3>₹0.00</h3>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="content">
+    <!-- Left content -->
+    <div class="content-left">
+      <!-- transactions -->
+      <div class="transactions">
+        <p class="title">Transactions</p>
+
+        <div class="categories">
+          <button>all</button>
+          <button>income</button>
+          <button>expenses</button>
+        </div>
+
+        <div class="history">
+
+          <!-- Card 1 -->
+          <div class="history-card">
+            <div class="history-left">
+              <div class="history-left-icon">
+                <i class="fa-solid fa-circle"></i>
+              </div>
+
+              <div class="history-left-text">
+                <p class="description">Salary</p>
+                <p class="category">Salary • 5 Mar 2026</p>
+              </div>
+            </div>
+
+            <div class="history-right">
+              <p class="money">+₹23,323.00</p>
+              <p class="delete-transaction">
+                <i class="fa-solid fa-xmark"></i> delete
+              </p>
+            </div>
+          </div>
+
+
+          <!-- Card 2 -->
+          <div class="history-card">
+            <div class="history-left">
+              <div class="history-left-icon">
+                <i class="fa-solid fa-circle"></i>
+              </div>
+
+              <div class="history-left-text">
+                <p class="description">Food</p>
+                <p class="category">Food • 4 Mar 2026</p>
+              </div>
+            </div>
+
+            <div class="history-right">
+              <p class="money">-₹320.00</p>
+              <p class="delete-transaction">
+                <i class="fa-solid fa-xmark"></i> delete
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Infographics -->
+      <div class="infographics">
+        <p class="title">this week</p>
+
+        <div class="charts">
+
+          <div class="day">
+            <div class="bars">
+              <div class="income"></div>
+              <div class="expense"></div>
+            </div>
+            <p>Monday</p>
+          </div>
+
+          <div class="day">
+            <div class="bars">
+              <div class="income"></div>
+              <div class="expense"></div>
+            </div>
+            <p>Tuesday</p>
+          </div>
+
+          <div class="day">
+            <div class="bars">
+              <div class="income"></div>
+              <div class="expense"></div>
+            </div>
+            <p>Wednesday</p>
+          </div>
+
+          <div class="day">
+            <div class="bars">
+              <div class="income"></div>
+              <div class="expense"></div>
+            </div>
+            <p>Thursday</p>
+          </div>
+
+          <div class="day">
+            <div class="bars">
+              <div class="income"></div>
+              <div class="expense"></div>
+            </div>
+            <p>Friday</p>
+          </div>
+
+          <div class="day">
+            <div class="bars">
+              <div class="income"></div>
+              <div class="expense"></div>
+            </div>
+            <p>Saturday</p>
+          </div>
+
+          <div class="day">
+            <div class="bars">
+              <div class="income"></div>
+              <div class="expense"></div>
+            </div>
+            <p>Sunday</p>
+          </div>
+        </div>
+
+        <div class="legend">
+          <p class="info-income">Income</p>
+          <p class="info-expense">Expenses</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right content -->
+    <div class="content-right">
+      <div class="transactions-form-wrapper">
+
+      </div>
+
+      <div class="expenses-chart"></div>
+    </div>
+  </div>
+</body>
+
+</html>
