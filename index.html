@@ -57,7 +57,7 @@
     <!-- Left content -->
     <div class="content-left">
       <!-- transactions -->
-      <div class="transactions">
+      <div class="transactions empty">
         <p class="title">Transactions</p>
 
         <div class="categories">
@@ -67,6 +67,9 @@
         </div>
 
         <div class="history">
+          <div class="empty-state">
+            <p>No transactions found</p>
+          </div>
 
           <!-- Card 1 -->
           <div class="history-card">
@@ -186,7 +189,79 @@
 
     <!-- Content right -->
     <div class="content-right">
-      
+      <!-- New form entry -->
+      <div class="new-entry">
+        <p class="title">New entry</p>
+
+        <form id="entry-form">
+          <div class="form-group">
+            <label class="form-label">type</label>
+            <div class="type-toggle">
+              <button type="button" class="type-btn active income-btn" id="incomeBtn">+ income</button>
+              <button type="button" class="type-btn expense-btn" id="expenseBtn">- expense</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description" class="form-label">description</label>
+            <input type="text" class="form-input" id="description" placeholder="e.g. Salary, Groceries..."> 
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="amount" class="form-label">amount (₹)</label>
+              <input type="number" class="form-input" id="amount" placeholder="0.00" step="10" min="0">
+            </div>
+            <div class="form-group">
+              <label for="date" class="form-label">date</label>
+              <div class="date-wrapper">
+                <input type="date" id="date" class="form-input date-input">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="category" class="form-label">category</label>
+            <div class="select-wrapper">
+              <select id="category" class="form-input form-select">
+                <option>Shopping</option>
+                <option>Food</option>
+                <option>Transport</option>
+                <option>Entertainment</option>
+                <option>Health</option>
+                <option>Utilities</option>
+                <option>Salary</option>
+                <option>Freelance</option>
+                <option>Other</option>
+              </select>
+              <i class="fa-solid fa-chevron-down select-icon"></i>
+            </div>
+          </div>
+
+          <button type="submit" class="add-btn">add transaction</button>
+        </form>
+      </div>
+
+      <div class="expense-breakdown empty">
+        <p class="title">Expense breakdown</p>
+
+        <div class="empty-state">
+          <p>No expenses recorded</p>
+        </div>
+
+        <div class="breakdown-item">
+          <div class="breakdown-item-header">
+            <p class="breakdown-item-label">Food</p>
+            <div class="breakdown-item-right">
+              <p class="breakdown-item-percent">32%</p>
+              <p class="breakdown-item-amount">₹320.00</p>
+            </div>
+          </div>
+          <div class="breakdown-bar-track">
+            <div class="breakdown-bar-fill" style="width: 40%"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </body>
