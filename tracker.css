@@ -702,3 +702,14 @@ body {
   text-transform: capitalize;
   opacity: 0.6;
 }
+
+/* hide paragraph for non-empty divs */
+/* hide empty state when history cards exist */
+.history:has(.history-card) .empty-state {
+  display: none;
+}
+
+/* hide empty state when breakdown items exist */
+.expense-breakdown:has(.breakdown-item) .empty-state {
+  display: none;
+}
