@@ -510,11 +510,17 @@ body {
 
   font-size: 0.75rem;
   letter-spacing: 0.1rem;
+
+  transition: all 0.2s ease;
 }
 
 .type-btn:not(.active):hover {
   background: #1a1a1d;
   color: var(--text);
+}
+
+#incomeBtn {
+  background: var(--theme-green);
 }
 
 #incomeBtn.active {
@@ -525,6 +531,14 @@ body {
 #expenseBtn.active {
   background: var(--theme-red);
   color: #2a0000;
+}
+
+#incomeBtn:focus {
+  background: var(--theme-green);
+}
+
+#expenseBtn:focus {
+  background: rgb(159, 7, 7);
 }
 
 /* form group */
