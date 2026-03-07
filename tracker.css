@@ -519,10 +519,6 @@ body {
   color: var(--text);
 }
 
-#incomeBtn {
-  background: var(--theme-green);
-}
-
 #incomeBtn.active {
   background: var(--theme-green);
   color: #1a1f00;

@@ -7,3 +7,12 @@ deleteBtns.forEach(btn => {
   });
 });
 
+// toggle income and expense buttons
+const typeBtns = document.querySelectorAll(".type-btn");
+
+typeBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    typeBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+  });
+});
