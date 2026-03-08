@@ -29,7 +29,7 @@
 
     <!-- Date -->
     <div class="header-right">
-      <p id="date">Tuesday, 3 March 2026</p>
+      <p id="day">Tuesday, 3 March 2026</p>
     </div>
   </header>
 
@@ -70,50 +70,6 @@
           <div class="empty-state">
             <p>No transactions found</p>
           </div>
-
-          <!-- Card 1 -->
-          <div class="history-card">
-            <div class="history-left">
-              <div class="history-left-icon">
-                <i class="fa-solid fa-circle income"></i>
-              </div>
-
-              <div class="history-left-text">
-                <p class="description">Salary</p>
-                <p class="category">Salary • 5 Mar 2026</p>
-              </div>
-            </div>
-
-            <div class="history-right">
-              <p class="money income">+₹23,323.00</p>
-              <p class="delete-transaction">
-                <i class="fa-solid fa-xmark"></i> delete
-              </p>
-            </div>
-          </div>
-
-
-          <!-- Card 2 -->
-          <div class="history-card">
-            <div class="history-left">
-              <div class="history-left-icon">
-                <i class="fa-solid fa-circle expense"></i>
-              </div>
-
-              <div class="history-left-text">
-                <p class="description">Food</p>
-                <p class="category">Food • 4 Mar 2026</p>
-              </div>
-            </div>
-
-            <div class="history-right">
-              <p class="money expense">-₹320.00</p>
-              <p class="delete-transaction">
-                <i class="fa-solid fa-xmark"></i> delete
-              </p>
-            </div>
-          </div>
-
         </div>
       </div>
 
@@ -197,7 +153,7 @@
           <div class="form-group">
             <label class="form-label">type</label>
             <div class="type-toggle">
-              <button type="button" class="type-btn active income-btn" id="incomeBtn">+ income</button>
+              <button type="button" class="type-btn income-btn active" id="incomeBtn">+ income</button>
               <button type="button" class="type-btn expense-btn" id="expenseBtn">- expense</button>
             </div>
           </div>
@@ -210,7 +166,7 @@
           <div class="form-row">
             <div class="form-group">
               <label for="amount" class="form-label">amount (₹)</label>
-              <input type="number" class="form-input" id="amount" placeholder="0.00" step="10" min="0" required>
+              <input type="number" class="form-input" id="amount" placeholder="0.00" step="0.01" min="0" required>
             </div>
             <div class="form-group">
               <label for="date" class="form-label">date</label>
