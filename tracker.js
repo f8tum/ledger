@@ -50,8 +50,10 @@ const renderTransaction = (transaction) => {
   document.querySelector(".history").appendChild(card);
 };  
 
-// update financials
+// Transactions array
 const transactions = [];
+
+// update financials
 const updateFinancials = () => {
   const totalIncome = transactions
     .filter(t => t.type === "income")
@@ -68,7 +70,60 @@ const updateFinancials = () => {
   document.querySelector("#expenses h3").textContent = `₹${totalExpenses.toFixed(2)}`;
 };
 
-// update 
+// update charts
+const updateCharts = () => {
+  // Get this week's transactions
+  const today = new Date();
+  const daysFromMonday = (today.getDay() + 6) % 7;
+  
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - daysFromMonday);
+  monday.setHours(0, 0, 0, 0);
+  
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  sunday.setHours(23, 59, 59, 999);
+
+  const weekTransactions = transactions.filter(t => {
+    const transactionDate = new Date(t.date);
+    return transactionDate >= monday && transactionDate <= sunday;
+  });
+
+  // Group transactions by day
+  const days = [
+    { income: 0, expense: 0 },
+    { income: 0, expense: 0 },
+    { income: 0, expense: 0 },
+    { income: 0, expense: 0 },
+    { income: 0, expense: 0 },
+    { income: 0, expense: 0 },
+    { income: 0, expense: 0 },
+  ];
+
+  weekTransactions.forEach(t => {
+    const dayIndex = (new Date(t.date).getDay() + 6) % 7;
+    if (t.type === "income") {
+      days[dayIndex].income += t.amount;
+    } else {
+      days[dayIndex].expense += t.amount;
+    }
+  });
+
+  // Find max value for scaling
+  const maxValue = Math.max(...days.map(d => Math.max(d.income, d.expense)));
+
+  // Update bar heights
+  const maxHeight = 100;
+  const dayEls = document.querySelectorAll(".day");
+
+  days.forEach((day, i) => {
+    const incomeBar = dayEls[i].querySelector(".bar-income");
+    const expenseBar = dayEls[i].querySelector(".bar-expense");
+
+    incomeBar.style.height = maxValue ? `${Math.max((day.income / maxValue) * maxHeight, 1)}px` : "1px";
+    expenseBar.style.height = maxValue ? `${Math.max((day.expense / maxValue) * maxHeight, 1)}px` : "1px";
+  });
+};
 
 // take form data into an object
 const form = document.getElementById("entry-form");
@@ -89,7 +144,7 @@ form.addEventListener("submit", (e) => {
 
   renderTransaction(transaction);
   updateFinancials();
-  updateCharts(transaction);
+  updateCharts();
 
   // form.reset();
 }); 
