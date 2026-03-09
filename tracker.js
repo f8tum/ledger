@@ -10,7 +10,7 @@ typeBtns.forEach(btn => {
 
 // ---------- Helper Functions ----------
 
-// update financials
+// render transaction history
 const renderTransaction = (transaction) => {
   const card = document.createElement("div");
   card.classList.add("history-card");
@@ -38,12 +38,37 @@ const renderTransaction = (transaction) => {
   `;
 
   // delete transaction
+  card.transaction = transaction;
+
   card.querySelector(".delete-transaction").addEventListener("click", () => {
+    const index = transactions.indexOf(card.transaction);
+    transactions.splice(index, 1);
     card.remove();
+    updateFinancials();
   });
 
   document.querySelector(".history").appendChild(card);
 };  
+
+// update financials
+const transactions = [];
+const updateFinancials = () => {
+  const totalIncome = transactions
+    .filter(t => t.type === "income")
+    .reduce((sum, t) => sum + t.amount, 0);
+
+  const totalExpenses = transactions
+    .filter(t => t.type === "expense")
+    .reduce((sum, t) => sum + t.amount, 0);
+
+  const netBalance = totalIncome - totalExpenses;
+
+  document.querySelector("#balance h3").textContent = `₹${netBalance.toFixed(2)}`;
+  document.querySelector("#income h3").textContent = `₹${totalIncome.toFixed(2)}`;
+  document.querySelector("#expenses h3").textContent = `₹${totalExpenses.toFixed(2)}`;
+};
+
+// update 
 
 // take form data into an object
 const form = document.getElementById("entry-form");
@@ -60,7 +85,11 @@ form.addEventListener("submit", (e) => {
   };
   console.log(transaction);
 
-  renderTransaction(transaction);
+  transactions.push(transaction);
 
-  form.reset();
+  renderTransaction(transaction);
+  updateFinancials();
+  updateCharts(transaction);
+
+  // form.reset();
 }); 
