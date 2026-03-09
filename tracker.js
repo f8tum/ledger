@@ -125,6 +125,54 @@ const updateCharts = () => {
   });
 };
 
+// update expense breakdown 
+const updateBreakdown = () => {
+  const expenseTransactions = transactions.filter(t => t.type === "expense");
+
+  // group by category
+  const categories = {};
+  expenseTransactions.forEach(t => {
+    if (categories[t.category]) {
+      categories[t.category] += t.amount;
+    } else {
+      categories[t.category] = t.amount;
+    }
+  });
+
+  // total expenses
+  const total = expenseTransactions.reduce((sum, t) => sum + t.amount, 0);
+
+  // highest category for bar scaling
+  const maxAmount = Math.max(...Object.values(categories));
+
+  // clear existing items
+  const breakdown = document.querySelector(".expense-breakdown");
+  breakdown.querySelectorAll(".breakdown-item").forEach(item => item.remove());
+
+  // render each category
+  Object.entries(categories).forEach(([category, amount]) => {
+    const percent = Math.round((amount / total) * 100);
+    const barWidth = Math.round((amount / maxAmount) * 100);
+
+    const item = document.createElement("div");
+    item.classList.add("breakdown-item");
+    item.innerHTML = `
+      <div class="breakdown-item-header">
+        <p class="breakdown-item-label">${category}</p>
+        <div class="breakdown-item-right">
+          <p class="breakdown-item-percent">${percent}%</p>
+          <p class="breakdown-item-amount">₹${amount.toFixed(2)}</p>
+        </div>
+      </div>
+      <div class="breakdown-bar-track">
+        <div class="breakdown-bar-fill" style="width: ${barWidth}%"></div>
+      </div>
+    `;
+
+    breakdown.appendChild(item);
+  });
+};
+
 // take form data into an object
 const form = document.getElementById("entry-form");
 
@@ -145,6 +193,7 @@ form.addEventListener("submit", (e) => {
   renderTransaction(transaction);
   updateFinancials();
   updateCharts();
+  updateBreakdown();
 
-  // form.reset();
+  form.reset();
 }); 
