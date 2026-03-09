@@ -20,13 +20,11 @@ const renderTransaction = (transaction) => {
       <div class="history-left-icon">
         <i class="fa-solid fa-circle ${transaction.type}"></i>
       </div>
-
       <div class="history-left-text">
         <p class="description">${transaction.description}</p>
         <p class="category">${transaction.category} • ${transaction.date}</p>
       </div>
     </div>
-
     <div class="history-right">
       <p class="money ${transaction.type}">
         ${transaction.type === "income" ? "+" : "-"}₹${transaction.amount}
@@ -37,7 +35,6 @@ const renderTransaction = (transaction) => {
     </div>
   `;
 
-  // delete transaction
   card.transaction = transaction;
 
   card.querySelector(".delete-transaction").addEventListener("click", () => {
@@ -45,13 +42,36 @@ const renderTransaction = (transaction) => {
     transactions.splice(index, 1);
     card.remove();
     updateFinancials();
+    updateCharts();
+    updateBreakdown();
+    saveTransactions();
   });
 
   document.querySelector(".history").appendChild(card);
-};  
+};
 
 // Transactions array
 const transactions = [];
+
+// save to localStorage
+const saveTransactions = () => {
+  localStorage.setItem("transactions", JSON.stringify(transactions));
+};
+
+// load from localStorage
+const loadTransactions = () => {
+  const saved = localStorage.getItem("transactions");
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    parsed.forEach(t => {
+      transactions.push(t);
+      renderTransaction(t);
+    });
+    updateFinancials();
+    updateCharts();
+    updateBreakdown();
+  }
+};
 
 // update financials
 const updateFinancials = () => {
@@ -72,14 +92,13 @@ const updateFinancials = () => {
 
 // update charts
 const updateCharts = () => {
-  // Get this week's transactions
   const today = new Date();
   const daysFromMonday = (today.getDay() + 6) % 7;
-  
+
   const monday = new Date(today);
   monday.setDate(today.getDate() - daysFromMonday);
   monday.setHours(0, 0, 0, 0);
-  
+
   const sunday = new Date(monday);
   sunday.setDate(monday.getDate() + 6);
   sunday.setHours(23, 59, 59, 999);
@@ -89,7 +108,6 @@ const updateCharts = () => {
     return transactionDate >= monday && transactionDate <= sunday;
   });
 
-  // Group transactions by day
   const days = [
     { income: 0, expense: 0 },
     { income: 0, expense: 0 },
@@ -109,10 +127,7 @@ const updateCharts = () => {
     }
   });
 
-  // Find max value for scaling
   const maxValue = Math.max(...days.map(d => Math.max(d.income, d.expense)));
-
-  // Update bar heights
   const maxHeight = 100;
   const dayEls = document.querySelectorAll(".day");
 
@@ -125,11 +140,10 @@ const updateCharts = () => {
   });
 };
 
-// update expense breakdown 
+// update expense breakdown
 const updateBreakdown = () => {
   const expenseTransactions = transactions.filter(t => t.type === "expense");
 
-  // group by category
   const categories = {};
   expenseTransactions.forEach(t => {
     if (categories[t.category]) {
@@ -139,17 +153,12 @@ const updateBreakdown = () => {
     }
   });
 
-  // total expenses
   const total = expenseTransactions.reduce((sum, t) => sum + t.amount, 0);
-
-  // highest category for bar scaling
   const maxAmount = Math.max(...Object.values(categories));
 
-  // clear existing items
   const breakdown = document.querySelector(".expense-breakdown");
   breakdown.querySelectorAll(".breakdown-item").forEach(item => item.remove());
 
-  // render each category
   Object.entries(categories).forEach(([category, amount]) => {
     const percent = Math.round((amount / total) * 100);
     const barWidth = Math.round((amount / maxAmount) * 100);
@@ -177,7 +186,7 @@ const updateBreakdown = () => {
 const form = document.getElementById("entry-form");
 
 form.addEventListener("submit", (e) => {
-  e.preventDefault(); // prevent page reload
+  e.preventDefault();
 
   const transaction = {
     type: document.querySelector(".type-btn.active").id === "incomeBtn" ? "income" : "expense",
@@ -186,14 +195,16 @@ form.addEventListener("submit", (e) => {
     date: document.getElementById("date").value,
     category: document.getElementById("category").value,
   };
-  console.log(transaction);
 
   transactions.push(transaction);
-
   renderTransaction(transaction);
   updateFinancials();
   updateCharts();
   updateBreakdown();
+  saveTransactions();
 
   form.reset();
-}); 
+});
+
+// load saved transactions on page load
+loadTransactions();
